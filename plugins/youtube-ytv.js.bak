@@ -1,0 +1,23 @@
+let limit = 80
+let handler = async (m, { conn, usedPrefix }) => {
+if (!text) return reply( `Example : ${prefix + command} https://youtube.com*****`)
+if (!q.includes('youtu')) return reply(`Link Invalid!!`)
+m.reply(mess.wait)
+data = await caliph.downloader.youtube.ytmp4(q)
+var nme = `./media/vid/${Date.now()}.mp4`
+ fs.writeFileSync(nme, await getBuffer(data.result))
+ var ran = './media/aud/'+getRandom('.mp3')
+ exec(`ffmpeg -i ${nme} ${ran}`, async (err) => {
+ conn.sendMessage(m.chat, { audio: fs.readFileSync(ran), mimetype: 'audio/mp4', fileName: `${data.title}.mp3` }, { quoted: m })
+fs.unlinkSync(nme)
+fs.unlinkSync(ran)
+ })
+}
+
+handler.help = ['mp4', 'v', ''].map(v => 'yt' + v + ` <url> <without message>`)
+handler.tags = ['downloader']
+handler.command = /^yt(v|mp4)?$/i
+handler.limit = true
+
+
+module.exports = handler
